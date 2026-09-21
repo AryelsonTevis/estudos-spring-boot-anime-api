@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql
+    container_name: mysqlspring
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - spring_boot_user_data:/var/lib/mysqlspring
+
+volumes:
+  spring_boot_user_data:
