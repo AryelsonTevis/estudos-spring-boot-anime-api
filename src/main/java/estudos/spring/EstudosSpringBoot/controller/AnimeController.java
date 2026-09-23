@@ -42,9 +42,9 @@ public class AnimeController {
         return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
     }
     @GetMapping(path = "/find")
-    public ResponseEntity<Page<Anime>> findByName(@RequestParam String name,Pageable pageable) {
+    public ResponseEntity<List<Anime>> findByName(@RequestParam String name) {
         log.info(dateUtil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
-        return ResponseEntity.ok(animeService.findByName(name,pageable));
+        return ResponseEntity.ok(animeService.findByName(name));
     }
 
     @PostMapping
