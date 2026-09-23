@@ -2,8 +2,10 @@ package estudos.spring.EstudosSpringBoot.domain;
 
 import jakarta.persistence.*;
 
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,5 +27,6 @@ public class Anime {
 
     @ManyToOne
     @JoinColumn(name = "producer_id")
+    @NotNull(message = "The producer id cannot be empty")
     private Producer producer;
 }

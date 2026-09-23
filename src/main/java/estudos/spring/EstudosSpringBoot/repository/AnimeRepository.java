@@ -6,10 +6,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 
 public interface AnimeRepository extends JpaRepository<Anime, Long> {
 
-    Page<Anime> findAll( Pageable pageable);
-    Page<Anime> findByName(String name, Pageable pageable);
+    Page<Anime> findAll(Pageable pageable);
+
+
+    List<Anime> findByName(String name);
 
 }

@@ -28,8 +28,9 @@ public class AnimeService {
         return animeRepository.findAll();
     }
 
-    public Page<Anime> findByName(String name, Pageable pageable) {
-        return animeRepository.findByName(name, pageable);
+
+    public List<Anime> findByName(String name) {
+        return animeRepository.findByName(name);
     }
 
     public Anime findByIdOrThrowBadRequestException(Long id) {
@@ -43,7 +44,7 @@ public class AnimeService {
         Producer producer = producerService.findByIdOrThrowBadRequestException(animeRequest.getProducer_id());
         Anime anime = Anime.builder().name(animeRequest.getName()).producer(producer).build();
 
-        return Anime.builder().id(anime.getId()).name(anime.getName()).producer(anime.getProducer()).build();
+        return animeRepository.save(anime);
 
     }
 
