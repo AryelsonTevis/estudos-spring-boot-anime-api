@@ -2,13 +2,14 @@ package estudos.spring.EstudosSpringBoot.service;
 
 import estudos.spring.EstudosSpringBoot.DTO.AnimePostRequest;
 import estudos.spring.EstudosSpringBoot.DTO.AnimePutRequest;
-import estudos.spring.EstudosSpringBoot.DTO.AnimeResponse;
 import estudos.spring.EstudosSpringBoot.domain.Anime;
 import estudos.spring.EstudosSpringBoot.domain.Producer;
 import estudos.spring.EstudosSpringBoot.exception.BadRequestException;
 import estudos.spring.EstudosSpringBoot.repository.AnimeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,16 +21,16 @@ public class AnimeService {
     private final ProducerService producerService;
 
 
-
-    public List<AnimeResponse> listAll() {
-        return animeRepository.findAll().stream().map(this::response).toList();
+    public Page<Anime> listAll(Pageable pageable) {
+        return animeRepository.findAll(pageable);
     }
-    public List<AnimeResponse> findByName(String name) {
-        return animeRepository.findByName(name).stream().map(this::response).toList();
+    public List<Anime> listAllNonPageable() {
+        return animeRepository.findAll();
     }
 
-    public AnimeResponse response(Anime anime){
-        return AnimeResponse.builder().id(anime.getId()).name(anime.getName()).producer_name(anime.getProducer().getName()).build();
+
+    public List<Anime> findByName(String name) {
+        return animeRepository.findByName(name);
     }
 
     public Anime findByIdOrThrowBadRequestException(Long id) {
@@ -38,12 +39,12 @@ public class AnimeService {
     }
 
     @Transactional
-    public AnimeResponse save(AnimePostRequest animeRequest) {
+    public Anime save(AnimePostRequest animeRequest) {
 
         Producer producer = producerService.findByIdOrThrowBadRequestException(animeRequest.getProducer_id());
         Anime anime = Anime.builder().name(animeRequest.getName()).producer(producer).build();
 
-        return AnimeResponse.builder().id(anime.getId()).name(anime.getName()).producer_name(anime.getProducer().getName()).build();
+        return animeRepository.save(anime);
 
     }
 
@@ -59,4 +60,5 @@ public class AnimeService {
 
         animeRepository.save(anime);
     }
+
 }
