@@ -32,16 +32,13 @@ public class SpringClient {
         log.info("Get exchange'{}'", animesList.getBody());
 
 
-        AnimePostRequest animePostRequest = new AnimePostRequest();
-        animePostRequest.setName("Kingdom");
-        animePostRequest.setProducer_id(6L);
+        AnimePostRequest animePostRequest = AnimePostRequest.builder().name("Kingdom").producer_id(6L).build();
+
         Anime animePost = new RestTemplate().postForObject("http://localhost:8080/animes", animePostRequest, Anime.class);
 
         log.info("Post For object '{}'", animePost);
 
-        AnimePostRequest animePostRequestSecond = new AnimePostRequest();
-        animePostRequestSecond.setName("Vagabond");
-        animePostRequestSecond.setProducer_id(11L);
+        AnimePostRequest animePostRequestSecond = AnimePostRequest.builder().name("Vagabond").producer_id(11L).build();
         ResponseEntity<Anime> animeSaved = new RestTemplate().exchange("http://localhost:8080/animes",
                 HttpMethod.POST,
                 new HttpEntity<>(animePostRequestSecond),

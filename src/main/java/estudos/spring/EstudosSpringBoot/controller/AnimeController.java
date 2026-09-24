@@ -4,7 +4,6 @@ import estudos.spring.EstudosSpringBoot.DTO.AnimePostRequest;
 import estudos.spring.EstudosSpringBoot.DTO.AnimePutRequest;
 import estudos.spring.EstudosSpringBoot.domain.Anime;
 import estudos.spring.EstudosSpringBoot.service.AnimeService;
-import estudos.spring.EstudosSpringBoot.util.DateUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -22,28 +20,25 @@ import java.util.List;
 @Log4j2
 @RequiredArgsConstructor //constructor with finals
 public class AnimeController {
-    private final DateUtil dateUtil;
+
     private final AnimeService animeService;
 
 
     @GetMapping
     public ResponseEntity<Page<Anime>> list(Pageable pageable) {
-        log.info(dateUtil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(animeService.listAll(pageable));
     }
     @GetMapping(path = "/all")
     public ResponseEntity<List<Anime>> listAll() {
-        log.info(dateUtil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(animeService.listAllNonPageable());
     }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<Anime> findById(@PathVariable long id) {
-        log.info(dateUtil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
     }
     @GetMapping(path = "/find")
     public ResponseEntity<List<Anime>> findByName(@RequestParam String name) {
-        log.info(dateUtil.formatLocalDateTimeToDataBaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(animeService.findByName(name));
     }
 
