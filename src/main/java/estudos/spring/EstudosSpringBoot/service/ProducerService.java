@@ -26,7 +26,7 @@ public class ProducerService {
     }
 
     public Producer save(ProducerPostRequest producerRequest){
-        Producer producer = Producer.builder().name(producerRequest.name()).build();
+        Producer producer = Producer.builder().name(producerRequest.getName()).build();
         return producerRepository.save(producer);
     }
     public void delete(Long id){
@@ -34,8 +34,8 @@ public class ProducerService {
     }
 
     public void replace(ProducerPutRequest producerRequest){
-        Producer saveProducer = findByIdOrThrowBadRequestException(producerRequest.id());
-        Producer producer = Producer.builder().id(saveProducer.getId()).name(producerRequest.name()).build();
+        Producer saveProducer = findByIdOrThrowBadRequestException(producerRequest.getId());
+        Producer producer = Producer.builder().id(saveProducer.getId()).name(producerRequest.getName()).build();
 
         producerRepository.save(producer);
     }
