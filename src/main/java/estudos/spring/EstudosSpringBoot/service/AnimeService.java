@@ -8,15 +8,17 @@ import estudos.spring.EstudosSpringBoot.exception.BadRequestException;
 import estudos.spring.EstudosSpringBoot.repository.AnimeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class AnimeService {
+
     private final AnimeRepository animeRepository;
     private final ProducerService producerService;
 
@@ -40,8 +42,8 @@ public class AnimeService {
 
     @Transactional
     public Anime save(AnimePostRequest animeRequest) {
-
         Producer producer = producerService.findByIdOrThrowBadRequestException(animeRequest.getProducer_id());
+        log.info(producer);
         Anime anime = Anime.builder().name(animeRequest.getName()).producer(producer).build();
 
         return animeRepository.save(anime);
@@ -53,9 +55,9 @@ public class AnimeService {
     }
 
     public void replace(AnimePutRequest animeRequest) {
-        Anime savedAnime = findByIdOrThrowBadRequestException(animeRequest.id());
+        Anime savedAnime = findByIdOrThrowBadRequestException(animeRequest.getId());
 
-        Anime anime = Anime.builder().id(savedAnime.getId()).name(animeRequest.name()).producer(savedAnime.getProducer()).build();
+        Anime anime = Anime.builder().id(savedAnime.getId()).name(animeRequest.getName()).producer(savedAnime.getProducer()).build();
 
 
         animeRepository.save(anime);
