@@ -8,13 +8,12 @@ import estudos.spring.EstudosSpringBoot.exception.BadRequestException;
 import estudos.spring.EstudosSpringBoot.repository.AnimeRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Log4j2
+
 @Service
 @RequiredArgsConstructor
 public class AnimeService {
@@ -35,6 +34,11 @@ public class AnimeService {
         return animeRepository.findByName(name);
     }
 
+    public Anime verifyIdIsValid(Long id) {
+        if (id != null) return findByIdOrThrowBadRequestException(id);
+        throw new BadRequestException("Anime id cannot be null");
+    }
+
     public Anime findByIdOrThrowBadRequestException(Long id) {
         return animeRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException("Anime not found"));
@@ -42,8 +46,8 @@ public class AnimeService {
 
     @Transactional
     public Anime save(AnimePostRequest animeRequest) {
-        Producer producer = producerService.findByIdOrThrowBadRequestException(animeRequest.getProducer_id());
-        log.info(producer);
+        Producer producer = producerService.verifyIdIsValid(animeRequest.getProducer_id());
+
         Anime anime = Anime.builder().name(animeRequest.getName()).producer(producer).build();
 
         return animeRepository.save(anime);
@@ -51,11 +55,12 @@ public class AnimeService {
     }
 
     public void delete(long id) {
-        animeRepository.delete(findByIdOrThrowBadRequestException(id));
+        animeRepository.delete(verifyIdIsValid(id));
     }
 
     public void replace(AnimePutRequest animeRequest) {
-        Anime savedAnime = findByIdOrThrowBadRequestException(animeRequest.getId());
+
+        Anime savedAnime = verifyIdIsValid(animeRequest.getId());
 
         Anime anime = Anime.builder().id(savedAnime.getId()).name(animeRequest.getName()).producer(savedAnime.getProducer()).build();
 

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProducerPutRequest {
-
+@NotNull(message = "The producer id cannot be null")
     private long id;
     @NotNull(message = "The producer name cannot be empty")
     private String name;
