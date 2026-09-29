@@ -132,9 +132,6 @@ public class AnimeControllerIT {
     void findByName_ReturnsEmptyListOfAnime_WhenAnimeIsNotFound() {
 
 
-
-
-
         List<Anime> animeList = testRestTemplate.exchange("/animes/find?name=Black", HttpMethod.GET, null, new ParameterizedTypeReference<List<Anime>>() {
         }).getBody();
 
