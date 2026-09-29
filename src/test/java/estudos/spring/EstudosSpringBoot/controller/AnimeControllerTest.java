@@ -152,7 +152,6 @@ class AnimeControllerTest {
         Assertions.assertThat(entity).isNotNull();
         Assertions.assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
 
-
     }
 
     @Test

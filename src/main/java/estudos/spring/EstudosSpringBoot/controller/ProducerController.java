@@ -28,7 +28,7 @@ public class ProducerController {
         return ResponseEntity.ok(producerService.listAll(pageable));
     }
     @GetMapping(path = "/all")
-    public ResponseEntity<List<Producer>> list(){
+    public ResponseEntity<List<Producer>> listAll(){
         return ResponseEntity.ok(producerService.listAllNonPageable());
     }
 
@@ -40,7 +40,6 @@ public class ProducerController {
     public ResponseEntity<List<Producer>> findByName(@RequestParam String name) {
         return ResponseEntity.ok(producerService.findByName(name));
     }
-
 
     @PostMapping
     public ResponseEntity<Producer> save(@RequestBody ProducerPostRequest producerRequest){
