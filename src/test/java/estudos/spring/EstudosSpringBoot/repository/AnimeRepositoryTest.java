@@ -6,7 +6,6 @@ import estudos.spring.EstudosSpringBoot.domain.Producer;
 import estudos.spring.EstudosSpringBoot.utill.AnimeCreator;
 import estudos.spring.EstudosSpringBoot.utill.ProducerCreator;
 import jakarta.validation.ConstraintViolationException;
-import lombok.Builder;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
