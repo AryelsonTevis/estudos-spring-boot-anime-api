@@ -1,13 +1,12 @@
 package estudos.spring.EstudosSpringBoot.service;
 
 import estudos.spring.EstudosSpringBoot.domain.Anime;
-import estudos.spring.EstudosSpringBoot.domain.Producer;
 import estudos.spring.EstudosSpringBoot.exception.BadRequestException;
 import estudos.spring.EstudosSpringBoot.repository.AnimeRepository;
-import estudos.spring.EstudosSpringBoot.repository.ProducerRepository;
-import estudos.spring.EstudosSpringBoot.utill.*;
-import jakarta.validation.ConstraintViolationException;
-import lombok.extern.log4j.Log4j2;
+import estudos.spring.EstudosSpringBoot.utill.AnimeCreator;
+import estudos.spring.EstudosSpringBoot.utill.AnimePostRequestCreator;
+import estudos.spring.EstudosSpringBoot.utill.AnimePutRequestCreator;
+import estudos.spring.EstudosSpringBoot.utill.ProducerCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Log4j2
+
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 class AnimeServiceTest {
@@ -98,7 +97,7 @@ class AnimeServiceTest {
 
     @Test
     @DisplayName("findById returns anime when successful")
-    void findByIdOrThrowBadRequestException_Anime_WhenSuccessful() {
+    void findByIdOrThrowBadRequestException_ReturnAnime_WhenSuccessful() {
         Long expectedId = AnimeCreator.createValidAnime().getId();
 
         Anime animeFound = animeService.findByIdOrThrowBadRequestException(1L);
@@ -163,7 +162,6 @@ class AnimeServiceTest {
     @DisplayName("replace update anime when successful")
     void replace_UpdateAnime_WhenSuccessful() {
         Assertions.assertThatCode(() -> animeService.replace(AnimePutRequestCreator.createAnimePutRequest())).doesNotThrowAnyException();
-
     }
 
     @Test
