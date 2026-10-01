@@ -51,11 +51,10 @@ public class AnimeController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequest animeRequest) {
         return new ResponseEntity <> (animeService.save(animeRequest),HttpStatus.CREATED);
     }
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id){
         animeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
