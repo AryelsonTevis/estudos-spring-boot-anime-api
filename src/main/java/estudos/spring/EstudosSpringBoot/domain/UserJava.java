@@ -1,6 +1,7 @@
 package estudos.spring.EstudosSpringBoot.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,13 +20,14 @@ import java.util.Collection;
 @Entity
 @Builder
 public class UserJava implements UserDetails {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @NotEmpty(message = "The user's name cannot be empty")
     private String name;
     private String userName;
     private String password;
     private String authorities;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
 
     @Override
