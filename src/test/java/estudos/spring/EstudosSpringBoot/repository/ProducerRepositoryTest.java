@@ -24,13 +24,13 @@ class ProducerRepositoryTest {
         Producer producerToBeSaved = ProducerCreator.createProducer();
 
 
-       this.producerRepository.save(ProducerCreator.createProducer());
+        Producer savedProducer = this.producerRepository.save(ProducerCreator.createProducer());
 
-        Assertions.assertThat(producerToBeSaved).isNotNull();
+        Assertions.assertThat(savedProducer).isNotNull();
 
-        Assertions.assertThat(producerToBeSaved.getId()).isNotNull();
+        Assertions.assertThat(savedProducer.getId()).isNotNull();
 
-        Assertions.assertThat(producerToBeSaved.getName()).isEqualTo(producerToBeSaved.getName());
+        Assertions.assertThat(savedProducer.getName()).isEqualTo(producerToBeSaved.getName());
     }
     @Test
     @DisplayName("Save Updates producer when Successful")

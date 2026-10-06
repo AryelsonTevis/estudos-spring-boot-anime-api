@@ -6,9 +6,9 @@ spring:
   config:
     import: optional:file:.env[.properties]
   application:
-    name: EstudosSpringBoot
+    name: estudos-spring-boot
   datasource:
-    url: ${DB_URL}?createDatabaseIfNotExist=true
+    url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
@@ -24,3 +24,9 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health,metrics,prometheus
+application.properties: springdoc.show-actuator=true, management.metrics.application=${spring.application.name}

@@ -3,6 +3,7 @@ package estudos.spring.EstudosSpringBoot.controller;
 import estudos.spring.EstudosSpringBoot.DTO.ProducerPostRequest;
 import estudos.spring.EstudosSpringBoot.DTO.ProducerPutRequest;
 import estudos.spring.EstudosSpringBoot.domain.Producer;
+import estudos.spring.EstudosSpringBoot.domain.UserJava;
 import estudos.spring.EstudosSpringBoot.service.ProducerService;
 import estudos.spring.EstudosSpringBoot.utill.ProducerCreator;
 import estudos.spring.EstudosSpringBoot.utill.ProducerPostRequestCreator;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
